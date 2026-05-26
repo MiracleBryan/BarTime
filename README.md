@@ -1,6 +1,6 @@
-# Untitled Flutter App
+# BarTime
 
-A starter Flutter app scaffolded in this folder.
+A mobile Flutter app to record cocktails, bar visits, and drink memories.
 
 ## Getting Started
 
@@ -8,8 +8,5 @@ Install Flutter, then run:
 
 ```sh
 flutter pub get
-flutter create .
 flutter run
 ```
-
-`flutter create .` will generate the native platform folders such as `android/`, `ios/`, `macos/`, `web/`, `windows/`, and `linux/` while preserving the existing Dart source files.
