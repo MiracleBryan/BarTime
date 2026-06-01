@@ -24,7 +24,7 @@ class DishList extends StatelessWidget {
           title: dish.name,
           subtitle: '${dish.ingredients.length} ingredients • '
               '${dish.steps.length} steps',
-          imageUrl: dish.imageUrl,
+          imageBase64: dish.imageBase64,
           chips: dish.ingredients
               .take(3)
               .map((ingredient) => ingredient.displayText)

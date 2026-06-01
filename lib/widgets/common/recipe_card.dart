@@ -25,7 +25,7 @@ class RecipeCard extends StatelessWidget {
   const RecipeCard({
     required this.title,
     required this.subtitle,
-    required this.imageUrl,
+    required this.imageBase64,
     required this.chips,
     required this.actionsTooltip,
     required this.onOpen,
@@ -36,7 +36,7 @@ class RecipeCard extends StatelessWidget {
 
   final String title;
   final String subtitle;
-  final String imageUrl;
+  final String imageBase64;
   final List<String> chips;
   final String actionsTooltip;
   final VoidCallback onOpen;
@@ -52,7 +52,7 @@ class RecipeCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RecipeImage(url: imageUrl, size: 104),
+            RecipeImage(imageBase64: imageBase64, size: 104),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(12),

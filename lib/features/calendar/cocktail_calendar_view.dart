@@ -407,8 +407,15 @@ class CocktailMemoryImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Uint8List imageBytes;
+    try {
+      imageBytes = memory.imageBytes;
+    } on FormatException {
+      return const _ImagePlaceholder();
+    }
+
     return Image.memory(
-      memory.imageBytes,
+      imageBytes,
       fit: fit,
       errorBuilder: (context, error, stackTrace) => const _ImagePlaceholder(),
     );

@@ -2,38 +2,37 @@ part of '../../main.dart';
 
 class RecipeImage extends StatelessWidget {
   const RecipeImage({
-    required this.url,
+    required this.imageBase64,
     this.size,
     this.height,
     super.key,
   });
 
-  final String url;
+  final String imageBase64;
   final double? size;
   final double? height;
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = url.trim();
+    final savedImage = imageBase64.trim();
     final borderRadius = BorderRadius.circular(8);
     final width = size ?? double.infinity;
     final resolvedHeight = size ?? height ?? 160;
 
     Widget child;
-    if (imageUrl.isEmpty) {
+    if (savedImage.isEmpty) {
       child = const _ImagePlaceholder();
     } else {
-      child = Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) {
-            return child;
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
-        errorBuilder: (context, error, stackTrace) => const _ImagePlaceholder(),
-      );
+      try {
+        child = Image.memory(
+          base64Decode(savedImage),
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) =>
+              const _ImagePlaceholder(),
+        );
+      } on FormatException {
+        child = const _ImagePlaceholder();
+      }
     }
 
     return ClipRRect(

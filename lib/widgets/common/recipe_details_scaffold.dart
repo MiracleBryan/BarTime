@@ -3,14 +3,14 @@ part of '../../main.dart';
 class RecipeDetailsScaffold extends StatelessWidget {
   const RecipeDetailsScaffold({
     required this.title,
-    required this.imageUrl,
+    required this.imageBase64,
     required this.onEdit,
     required this.sections,
     super.key,
   });
 
   final String title;
-  final String imageUrl;
+  final String imageBase64;
   final VoidCallback onEdit;
   final List<DetailSection> sections;
 
@@ -49,7 +49,7 @@ class RecipeDetailsScaffold extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          RecipeImage(url: imageUrl, height: 220),
+          RecipeImage(imageBase64: imageBase64, height: 220),
           const SizedBox(height: 24),
           ...sections.expand(
             (section) => [

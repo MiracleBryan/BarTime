@@ -6,14 +6,14 @@ class Dish {
     required this.name,
     required this.ingredients,
     required this.steps,
-    required this.imageUrl,
+    required this.imageBase64,
   });
 
   final String id;
   final String name;
   final List<RecipeIngredient> ingredients;
   final List<String> steps;
-  final String imageUrl;
+  final String imageBase64;
 
   Map<String, dynamic> toJson() {
     return {
@@ -22,7 +22,7 @@ class Dish {
       'ingredients':
           ingredients.map((ingredient) => ingredient.toJson()).toList(),
       'steps': steps,
-      'imageUrl': imageUrl,
+      'imageBase64': imageBase64,
     };
   }
 
@@ -34,7 +34,7 @@ class Dish {
           .map(RecipeIngredient.fromSavedIngredient)
           .toList(),
       steps: List<String>.from(json['steps'] as List),
-      imageUrl: json['imageUrl'] as String? ?? '',
+      imageBase64: json['imageBase64'] as String? ?? '',
     );
   }
 }
@@ -88,14 +88,14 @@ class Cocktail {
     required this.name,
     required this.ingredients,
     required this.steps,
-    required this.imageUrl,
+    required this.imageBase64,
   });
 
   final String id;
   final String name;
   final List<RecipeIngredient> ingredients;
   final List<String> steps;
-  final String imageUrl;
+  final String imageBase64;
 
   Map<String, dynamic> toJson() {
     return {
@@ -104,7 +104,7 @@ class Cocktail {
       'ingredients':
           ingredients.map((ingredient) => ingredient.toJson()).toList(),
       'steps': steps,
-      'imageUrl': imageUrl,
+      'imageBase64': imageBase64,
     };
   }
 
@@ -116,7 +116,7 @@ class Cocktail {
           .map(RecipeIngredient.fromSavedIngredient)
           .toList(),
       steps: List<String>.from(json['steps'] as List),
-      imageUrl: json['imageUrl'] as String? ?? '',
+      imageBase64: json['imageBase64'] as String? ?? '',
     );
   }
 }
@@ -154,11 +154,14 @@ class CocktailMemory {
   }
 
   factory CocktailMemory.fromJson(Map<String, dynamic> json) {
+    final savedDate = DateTime.tryParse(json['date'] as String? ?? '');
+
     return CocktailMemory(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      date: DateTime.parse(json['date'] as String),
-      imageBase64: json['imageBase64'] as String,
+      id: json['id'] as String? ??
+          DateTime.now().microsecondsSinceEpoch.toString(),
+      name: json['name'] as String? ?? '',
+      date: savedDate ?? DateTime.now(),
+      imageBase64: json['imageBase64'] as String? ?? '',
       barName: json['barName'] as String? ?? '',
       location: json['location'] as String? ?? '',
     );

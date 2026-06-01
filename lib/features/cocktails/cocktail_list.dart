@@ -24,7 +24,7 @@ class CocktailList extends StatelessWidget {
           title: cocktail.name,
           subtitle: '${cocktail.ingredients.length} ingredients • '
               '${cocktail.steps.length} steps',
-          imageUrl: cocktail.imageUrl,
+          imageBase64: cocktail.imageBase64,
           chips: cocktail.ingredients
               .take(3)
               .map((ingredient) => ingredient.displayText)

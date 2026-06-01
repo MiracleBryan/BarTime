@@ -13,10 +13,19 @@ class RecipeStore {
       return [];
     }
 
-    final decoded = jsonDecode(savedJson) as List<dynamic>;
-    return decoded
-        .map((item) => Dish.fromJson(item as Map<String, dynamic>))
-        .toList();
+    try {
+      final decoded = jsonDecode(savedJson) as List<dynamic>;
+      return decoded
+          .whereType<Map<String, dynamic>>()
+          .map(Dish.fromJson)
+          .toList();
+    } on FormatException {
+      await preferences.remove(_dishStorageKey);
+      return [];
+    } on TypeError {
+      await preferences.remove(_dishStorageKey);
+      return [];
+    }
   }
 
   Future<void> saveDishes(List<Dish> dishes) async {
@@ -33,10 +42,19 @@ class RecipeStore {
       return [];
     }
 
-    final decoded = jsonDecode(savedJson) as List<dynamic>;
-    return decoded
-        .map((item) => Cocktail.fromJson(item as Map<String, dynamic>))
-        .toList();
+    try {
+      final decoded = jsonDecode(savedJson) as List<dynamic>;
+      return decoded
+          .whereType<Map<String, dynamic>>()
+          .map(Cocktail.fromJson)
+          .toList();
+    } on FormatException {
+      await preferences.remove(_cocktailStorageKey);
+      return [];
+    } on TypeError {
+      await preferences.remove(_cocktailStorageKey);
+      return [];
+    }
   }
 
   Future<void> saveCocktails(List<Cocktail> cocktails) async {
@@ -55,10 +73,19 @@ class RecipeStore {
       return [];
     }
 
-    final decoded = jsonDecode(savedJson) as List<dynamic>;
-    return decoded
-        .map((item) => CocktailMemory.fromJson(item as Map<String, dynamic>))
-        .toList();
+    try {
+      final decoded = jsonDecode(savedJson) as List<dynamic>;
+      return decoded
+          .whereType<Map<String, dynamic>>()
+          .map(CocktailMemory.fromJson)
+          .toList();
+    } on FormatException {
+      await preferences.remove(_cocktailMemoryStorageKey);
+      return [];
+    } on TypeError {
+      await preferences.remove(_cocktailMemoryStorageKey);
+      return [];
+    }
   }
 
   Future<void> saveCocktailMemories(

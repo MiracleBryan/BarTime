@@ -12,9 +12,10 @@ class DishFormSheet extends StatefulWidget {
 class _DishFormSheetState extends State<DishFormSheet> {
   final _formKey = GlobalKey<FormState>();
   final List<_IngredientControllers> _ingredientControllers = [];
+  final ImagePicker _imagePicker = ImagePicker();
   late final TextEditingController _nameController;
   late final TextEditingController _stepsController;
-  late final TextEditingController _imageUrlController;
+  String _imageBase64 = '';
 
   @override
   void initState() {
@@ -23,7 +24,7 @@ class _DishFormSheetState extends State<DishFormSheet> {
     _nameController = TextEditingController(text: dish?.name ?? '');
     _stepsController =
         TextEditingController(text: dish?.steps.join('\n') ?? '');
-    _imageUrlController = TextEditingController(text: dish?.imageUrl ?? '');
+    _imageBase64 = dish?.imageBase64 ?? '';
 
     if (dish == null || dish.ingredients.isEmpty) {
       _ingredientControllers.add(_IngredientControllers.empty());
@@ -38,7 +39,6 @@ class _DishFormSheetState extends State<DishFormSheet> {
   void dispose() {
     _nameController.dispose();
     _stepsController.dispose();
-    _imageUrlController.dispose();
     for (final controllers in _ingredientControllers) {
       controllers.dispose();
     }
@@ -73,17 +73,15 @@ class _DishFormSheetState extends State<DishFormSheet> {
                 validator: requiredValidator,
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _imageUrlController,
-                decoration: const InputDecoration(
-                  labelText: 'Dish image URL',
-                  prefixIcon: Icon(Icons.image),
-                ),
-                keyboardType: TextInputType.url,
-                onChanged: (_) => setState(() {}),
-              ),
+              RecipeImage(imageBase64: _imageBase64, height: 180),
               const SizedBox(height: 12),
-              RecipeImage(url: _imageUrlController.text.trim(), height: 180),
+              OutlinedButton.icon(
+                onPressed: _pickImage,
+                icon: const Icon(Icons.photo_library),
+                label: Text(
+                  _imageBase64.isEmpty ? 'Choose dish image' : 'Change image',
+                ),
+              ),
               const SizedBox(height: 16),
               Row(
                 children: [
@@ -163,9 +161,26 @@ class _DishFormSheetState extends State<DishFormSheet> {
           )
           .toList(),
       steps: linesFrom(_stepsController.text),
-      imageUrl: _imageUrlController.text.trim(),
+      imageBase64: _imageBase64,
     );
 
     Navigator.of(context).pop(dish);
+  }
+
+  Future<void> _pickImage() async {
+    final pickedImage = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1600,
+      imageQuality: 78,
+    );
+
+    if (pickedImage == null) {
+      return;
+    }
+
+    final bytes = await pickedImage.readAsBytes();
+    setState(() {
+      _imageBase64 = base64Encode(bytes);
+    });
   }
 }

@@ -15,7 +15,7 @@ class DishDetailsSheet extends StatelessWidget {
     return ThemedRecipeSheet(
       child: RecipeDetailsScaffold(
         title: dish.name,
-        imageUrl: dish.imageUrl,
+        imageBase64: dish.imageBase64,
         onEdit: onEdit,
         sections: [
           DetailSection(

@@ -1,6 +1,6 @@
 {
-    "name": "untitled_flutter_app",
-    "short_name": "untitled_flutter_app",
+    "name": "Bar Time",
+    "short_name": "Bar Time",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

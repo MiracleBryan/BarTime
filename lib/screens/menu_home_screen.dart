@@ -175,7 +175,7 @@ class _MenuHomeScreenState extends State<MenuHomeScreen> {
   @override
   Widget build(BuildContext context) {
     final title = switch (_selectedIndex) {
-      0 => 'Menu Book',
+      0 => 'Bar Time',
       1 => 'Cocktails',
       _ => 'Bar Calendar',
     };

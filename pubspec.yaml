@@ -1,4 +1,4 @@
-name: untitled_flutter_app
+name: bar_time
 description: A new Flutter app.
 publish_to: "none"
 version: 0.1.0+1
@@ -20,4 +20,8 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
+  config:
+    enable-swift-package-manager: true
   uses-material-design: true
+  assets:
+    - assets/mamoru_background.jpg

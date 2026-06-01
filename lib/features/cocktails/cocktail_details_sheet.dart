@@ -15,7 +15,7 @@ class CocktailDetailsSheet extends StatelessWidget {
     return ThemedRecipeSheet(
       child: RecipeDetailsScaffold(
         title: cocktail.name,
-        imageUrl: cocktail.imageUrl,
+        imageBase64: cocktail.imageBase64,
         onEdit: onEdit,
         sections: [
           DetailSection(

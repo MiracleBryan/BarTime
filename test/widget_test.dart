@@ -1,15 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled_flutter_app/main.dart';
+import 'package:bar_time/main.dart';
 
 void main() {
-  testWidgets('shows menu book empty state', (tester) async {
+  testWidgets('shows bar time empty state', (tester) async {
     SharedPreferences.setMockInitialValues({});
 
     await tester.pumpWidget(const MenuBookApp());
     await tester.pump();
 
-    expect(find.text('Menu Book'), findsOneWidget);
+    expect(find.text('Bar Time'), findsOneWidget);
     expect(find.text('No dishes yet'), findsOneWidget);
     expect(find.text('Add dish'), findsWidgets);
 
